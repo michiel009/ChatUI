@@ -1,0 +1,12 @@
+<div [class]="message().sender=== Sender.client ? 'messageClient' : 'messageServer'">
+  <div class="icon">
+    @if (message().sender === Sender.client) {
+      <mat-icon fontIcon="person"></mat-icon>
+    } @else {
+      <mat-icon>smart_toy</mat-icon>
+    }
+
+  </div>
+  <div class="text">{{ message().text }}
+  </div>
+</div>

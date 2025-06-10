@@ -1,0 +1,27 @@
+.messageClient, .messageServer {
+  flex: 0;
+  display: flex;
+  gap: 5px;
+  align-items: center;
+  white-space: pre-wrap;
+}
+
+.messageClient {
+  flex-direction: row-reverse;
+}
+
+.messageClient .text {
+  background-color: aquamarine;
+}
+
+.messageServer .text {
+  background-color: burlywood;
+}
+
+.icon {
+}
+
+.text {
+  border-radius: 10px;
+  padding: 10px;
+}

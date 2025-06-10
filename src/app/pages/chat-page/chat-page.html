@@ -1,0 +1,14 @@
+<div id="chat-container">
+  <div id="messages">
+
+    @for (msg of botStore.messages(); track msg) {
+      <app-chat-message [message]="msg"/>
+    }
+    @if (botStore.isLoading()) {
+      <mat-progress-bar mode="indeterminate"/>
+    }
+  </div>
+  <div id="input">
+    <app-chat-input (messageOutput)="send($event)" [disabled]="botStore.isLoading()"/>
+  </div>
+</div>

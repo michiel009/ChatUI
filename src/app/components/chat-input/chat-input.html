@@ -1,0 +1,13 @@
+<div id="inputWrapper">
+  <div id="textInput">
+    <mat-form-field subscriptSizing="dynamic">
+      <textarea matInput placeholder="Text..." (keydown.enter)="sendEnter($event)" [formControl]="textInput"
+                [disabled]="disabled()"></textarea>
+    </mat-form-field>
+  </div>
+  <div id="sendButton">
+    <button matFab (click)="sendClick($event)" [disabled]="disabled()">
+      <mat-icon>send</mat-icon>
+    </button>
+  </div>
+</div>

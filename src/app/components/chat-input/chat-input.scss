@@ -1,0 +1,19 @@
+@use '@angular/material' as mat;
+
+#sendButton {
+}
+
+#textInput {
+  flex-grow: 1;
+}
+
+#textInput mat-form-field {
+  width: 100%;
+}
+
+#inputWrapper {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  align-items: center;
+}
