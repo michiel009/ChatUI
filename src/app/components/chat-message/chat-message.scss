@@ -1,9 +1,13 @@
+@use '@angular/material' as mat;
+$theme: mat.define-theme();
+
 .messageClient, .messageServer {
   flex: 0;
   display: flex;
-  gap: 5px;
+  gap: 0.5em;
   align-items: center;
   white-space: pre-wrap;
+  font: var(--mat-sys-body-medium);
 }
 
 .messageClient {
@@ -11,11 +15,17 @@
 }
 
 .messageClient .text {
-  background-color: aquamarine;
+  background-color: var(--mat-sys-secondary);
+  color: var(--mat-sys-on-secondary);
+
+  box-shadow: var(--mat-sys-level3)
 }
 
 .messageServer .text {
-  background-color: burlywood;
+  background-color: var(--mat-sys-tertiary);
+  color: var(--mat-sys-on-tertiary);
+
+  box-shadow: var(--mat-sys-level3)
 }
 
 .icon {
@@ -23,5 +33,5 @@
 
 .text {
   border-radius: 10px;
-  padding: 10px;
+  padding: 0.75em;
 }

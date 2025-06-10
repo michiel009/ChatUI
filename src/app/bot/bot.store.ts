@@ -1,5 +1,5 @@
 import {Message, Sender} from '../types';
-import {patchState, signalStore, withMethods, withState} from '@ngrx/signals';
+import {patchState, signalStore, withHooks, withMethods, withState} from '@ngrx/signals';
 import {BotService} from './bot.service';
 import {inject} from '@angular/core';
 
@@ -16,7 +16,21 @@ const initialState: BotState = {
 export const BotStore = signalStore(
   {providedIn: 'root'},
   withState(initialState),
-  withMethods((store, botService=inject(BotService)) => ({
+  withHooks((store) => {
+    const botService = inject(BotService);
+    return {
+      onInit() {
+        botService.getHistory().then(history => {
+          patchState(store, (state) => ({
+            ...state,
+            messages: history
+          }))
+        })
+
+      }
+    }
+  }),
+  withMethods((store, botService = inject(BotService)) => ({
     send(textVal: string): void {
       patchState(store, (state) => ({
         ...state,

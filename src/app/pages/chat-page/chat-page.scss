@@ -1,7 +1,8 @@
 @use '@angular/material' as mat;
+$theme: mat.define-theme();
 
 #chat-container {
-  background-color: bisque;
+  background-color: var(--mat-sys-primary-container);
   display: flex;
   flex-direction: column;
   height: 100%;
@@ -16,13 +17,13 @@
   overflow-y: scroll;
   display: flex;
   flex-direction: column;
-  gap: 10px;
-  padding: 10px;
+  gap: 1em;
+  padding: 1em;
 }
 
 #input {
   padding: 10px;
-  background-color: blueviolet;
+  background-color: var(--mat-sys-secondary-container);
   width: calc(100% - 20px);
 }
 
