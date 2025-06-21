@@ -64,8 +64,8 @@ export const BotStore = signalStore(
           .sendLine(textVal).then(message => {
             res += message.text
             lastMsg.text = res
-          lastMsg.image = message.image
-          lastMsg.prompt = message.prompt
+            lastMsg.image = message.image
+            lastMsg.prompt = message.prompt
             patchState(store, (state) => ({
                 ...state,
                 messages: state.messages.map((a, index) => {

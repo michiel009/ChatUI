@@ -2,7 +2,7 @@
   <div id="messages" #messages>
 
     @for (msg of botStore.messages(); track msg) {
-      <app-chat-message [message]="msg" />
+      <app-chat-message [message]="msg"/>
     }
   </div>
   @if (botStore.isLoading()) {
