@@ -1,4 +1,14 @@
-import {Component, inject} from '@angular/core';
+import {
+  AfterViewChecked,
+  Component,
+  computed,
+  effect,
+  ElementRef,
+  inject,
+  OnChanges,
+  OnInit,
+  ViewChild
+} from '@angular/core';
 import {MatIconModule} from '@angular/material/icon';
 import {MatProgressBarModule} from '@angular/material/progress-bar';
 import {ChatMessage} from '../../components/chat-message/chat-message';
@@ -15,10 +25,32 @@ import {BotStore} from '../../bot/bot.store';
   templateUrl: './chat-page.html',
   styleUrl: './chat-page.scss'
 })
-export class ChatPage {
-  readonly botStore = inject(BotStore);
+export class ChatPage implements OnInit, AfterViewChecked {
 
+
+  readonly botStore = inject(BotStore);
+  @ViewChild('messages', { static: true })
+  inboxChat?: ElementRef<HTMLDivElement>;
   protected send(textVal: string) {
     this.botStore.send(textVal);
   }
+
+  ngOnInit() {
+    this.updateScroll();
+  }
+
+  ngAfterViewChecked() {
+    this.updateScroll();
+  }
+
+
+
+  updateScroll(): void {
+    if (this.inboxChat?.nativeElement) {
+      this.inboxChat.nativeElement.scrollTop =
+        this.inboxChat.nativeElement.scrollHeight;
+    }
+  }
+
+
 }

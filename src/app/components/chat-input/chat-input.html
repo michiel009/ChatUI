@@ -2,7 +2,7 @@
   <div id="textInput">
     <mat-form-field subscriptSizing="dynamic">
       <textarea matInput placeholder="Text..." (keydown.enter)="sendEnter($event)" [formControl]="textInput"
-                [disabled]="disabled()"></textarea>
+                [readonly]="disabled()"></textarea>
     </mat-form-field>
   </div>
   <div id="sendButton">

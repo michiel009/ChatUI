@@ -1,5 +1,5 @@
 import {Message, Sender} from '../types';
-import {patchState, signalStore, withHooks, withMethods, withState} from '@ngrx/signals';
+import {getState, patchState, signalStore, withHooks, withMethods, withState} from '@ngrx/signals';
 import {BotService} from './bot.service';
 import {inject} from '@angular/core';
 
@@ -46,25 +46,58 @@ export const BotStore = signalStore(
           })
         }))
 
-        botService
-          .sendLine(textVal)
-          .then(data => {
-            patchState(store, (state) => ({
-              ...state,
-              messages: state.messages.concat({
-                sender: Sender.server,
-                text: data
-              })
-            }))
+        let res = ""
+        let lastMsg: Message = {
+          sender: Sender.server,
+          text: res + "..."
+        }
 
-          }).catch(error => {
-          patchState(store, (state) => ({
+        patchState(store, (state) =>
+          ({
             ...state,
-            messages: state.messages.concat({
-              sender: Sender.server,
-              text: error
-            })
+            messages: state.messages.concat(lastMsg)
           }))
+
+        const botMsgIndex = getState(store).messages.length - 1
+
+        botService
+          .sendLine(textVal).then(message => {
+            res += message.text
+            lastMsg.text = res
+          lastMsg.image = message.image
+          lastMsg.prompt = message.prompt
+            patchState(store, (state) => ({
+                ...state,
+                messages: state.messages.map((a, index) => {
+                    if (index === botMsgIndex) {
+                      return lastMsg
+
+                    } else {
+                      return a
+                    }
+
+                  }
+                )
+              }
+            ))
+
+          }
+        ).catch(error => {
+          lastMsg.text = error.message;
+          patchState(store, (state) => ({
+              ...state,
+              messages: state.messages.map((a, index) => {
+                  if (index === botMsgIndex) {
+                    return lastMsg
+
+                  } else {
+                    return a
+                  }
+
+                }
+              )
+            }
+          ))
         }).finally(() => {
           patchState(store, (state) => ({
             ...state,

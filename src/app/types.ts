@@ -5,4 +5,6 @@ export enum Sender {
 export type Message = {
   sender: Sender,
   text: string,
+  image?: string,
+  prompt?: string
 }

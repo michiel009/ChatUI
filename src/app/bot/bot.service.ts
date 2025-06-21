@@ -1,6 +1,6 @@
 import {inject, Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {lastValueFrom} from 'rxjs';
+import {lastValueFrom, Observable} from 'rxjs';
 import {Message} from '../types';
 
 @Injectable({
@@ -9,11 +9,9 @@ import {Message} from '../types';
 export class BotService {
   http = inject(HttpClient);
 
-  sendLine(text: string): Promise<string> {
+  sendLine(text: string): Promise<Message> {
 
-    const addCall = this.http.post('http://localhost:8081/talk', text, {responseType: 'text'});
-
-    return lastValueFrom(addCall);
+    return lastValueFrom(this.http.post<Message>('http://localhost:8081/talk', text));
   }
 
   getHistory(): Promise<Message[]> {
