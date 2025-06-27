@@ -1,4 +1,8 @@
-# NewPROJECT
+# ChatUI
+ChatUI is an Angular front-end build to expose a UI for a chatbot build during a hackton:
+
+* Chatbot: https://github.com/michiel009/LangChain
+* MCP server: 
 
 This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 20.0.1.
 

@@ -1,14 +1,17 @@
-<div id="chat-container">
-  <div id="messages" #messages>
+<div id="block">
+  <div id="chat-container">
+    <div id="messages" #messages>
 
-    @for (msg of botStore.messages(); track msg) {
-      <app-chat-message [message]="msg"/>
+      @for (msg of botStore.messages(); track msg) {
+        <app-chat-message [message]="msg"/>
+      }
+    </div>
+    @if (botStore.isLoading()) {
+      <mat-progress-bar mode="indeterminate"/>
     }
+    <div id="input">
+      <app-chat-input (messageOutput)="send($event)" [disabled]="botStore.isLoading()"/>
+    </div>
   </div>
-  @if (botStore.isLoading()) {
-    <mat-progress-bar mode="indeterminate"/>
-  }
-  <div id="input">
-    <app-chat-input (messageOutput)="send($event)" [disabled]="botStore.isLoading()"/>
-  </div>
+  <div id="bg" [style.background-image]="image()"></div>
 </div>
